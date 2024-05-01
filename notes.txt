@@ -1,0 +1,41 @@
+1. You’re going to store the gameboard as an array inside of a GAMEBOARD object, so start there! 
+        - Your PLAYERS are also going to be stored in objects, 
+        - and you’re probably going to want an object to control the flow of the GAME itself.
+
+2. Your main goal here is to have as little global code as possible. 
+        - Try tucking as much as you can inside factories. 
+        - If you only need a single instance of something (e.g. the gameboard, the displayController etc.) then wrap the factory inside an IIFE (module pattern) so it cannot be reused to create additional instances.
+
+3. Each little piece of functionality should be able to fit in the GAME, PLAYER or GAMEBOARD objects. 
+        - Take care to put them in “logical” places. 
+        - Spending a little time brainstorming here can make your life much easier later!
+
+4. Focus on getting a working game in the console first. 
+        - Make sure you include logic that checks for when the game is over! 
+        - You should be checking for all winning 3-in-a-rows and ties. 
+        - Try to avoid thinking about the DOM and your HTML/CSS until your game is working.
+
+Process:
+- start with an empty array that will be the "gameboard"
+        - not actually empty, but with 9 'spots'
+- progressively add 'X's and 'O's to the array, populating it until it is no longer empty
+Requirements:
+- random numbers to decide where the next X/Y will go
+        - there must be a check to ensure that number has not been produced yet ()
+- there must be a check to ensure the array 'spot' is not already filled 
+        - if it is filled, try another spot
+
+Notes:
+- there will always be at most 9 rounds. 
+        - the game may stop earlier if there is a win (we can program this in later)
+
+- think about the properties that each object will need 
+        - PLAYERs will perhaps need to have:
+                - a NUMBER/NAME (Player 1 / Player 2)
+                - a TURN (to determine who's playing now: could be a boolean?)
+                - a CHOICE (X or O)
+
+        - GAMEBOARD will need to have:
+                - an ARRAY
+                - a way of CHANGING the array (for a player to select a certain slot)
+                - a way of READING the array (so we know which ones are empty and which ones aren't)
