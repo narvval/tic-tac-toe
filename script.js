@@ -50,6 +50,7 @@ const game = (function(){
   let round = 0; // Will never be > 9
   let turn = 1; // Will always be 1 or 2 (for each Player)
   let active = true;
+  let gameWinner = 'none';
 
   const getRound = () => round;
   const getTurn = () => turn;
@@ -57,13 +58,23 @@ const game = (function(){
   
   const checkForWinner = function() {
 		let winner = gameboard.getWinner(); // gameboard.getWinner() will return 'X', 'O' or 'none'
-		if (winner != 'none') {
-			return winner; // Will get 'X' or 'O'
+		if (winner != 'none') { // Will get 'X' or 'O'
+			if (winner === 'X') {
+        gameWinner = playerOne.name;
+        return gameWinner;
+      }
+      else {
+        gameWinner = playerTwo.name;
+        return gameWinner;
+
+      }
 		} else {
 			if (round === 9) {
-				return 'tie'; // All tiles are filled, but there is no winner
+				gameWinner = 'tie'; // All tiles are filled, but there is no winner
+				return gameWinner;
 			} else {
-				return 'none'; // Not all tiles are filled, game should continue
+				gameWinner = 'none'; // Not all tiles are filled, game should continue
+				return gameWinner;
 			}
 		}
 	}
@@ -75,7 +86,7 @@ const game = (function(){
 
 			// Check for win: will get 'X', 'O', 'tie' or 'none'
 			let winner = checkForWinner();
-      if (winner != 'none') { // If there is no winner, the game must continue (increase round, change turn) 
+      if (winner === 'none') { // If there is no winner, the game must continue (increase round, change turn) 
 				round++;
         if (turn === 1) {
           turn = 2;
@@ -113,16 +124,21 @@ const newPlayer = function(name, number) {
 playerOne = newPlayer('Player 1', 1);
 playerTwo = newPlayer('Player 2', 2);
 
+
+
+
+///////////////////////////////////////////////////////////////
+
 // Simulate game (check all these actually work)
 
 // - A GAMEBOARD object is automatically created:
 console.log('Game array is initially: ' + gameboard.getGameArray())
 
-// - A GAME object is automatically created. It may have:
+// - A GAME object is automatically created. 
 console.log('Game active: ' + game.isActive())
 console.log('Round: ' + game.getRound());
 console.log('It is player ' + game.getTurn() + '\'s turn');
-console.log('Win status: ' + game.checkForWin());
+console.log('Winner is ' + game.checkForWinner())
 
 // - 2 PLAYER objects are automatically created. 
 console.log(playerOne.name + ' is ' + playerOne.number + 'st');
@@ -136,21 +152,41 @@ playerTwo.name = 'The Devil'
 console.log(playerOne.name + ': ' + playerOne.number);
 console.log(playerTwo.name + ': ' + playerTwo.number);
 
-// 1 - the user prompts the start of the GAME (when working on HTML, this will prompt the appearance of the gameboard DISPLAY)
 
-// 2 - Player (whose turn it is) is prompted to choose an index on the board to place his TOKEN
+// 2 - Player (whose turn it is) chooses an index on the board to place his TOKEN 
+game.play(5)
 
-// 3 - GAMEBOARD array is updated so that the chosen INDEX is filled in with the player's TOKEN (X for TURN 1, O for TURN 2)
+// 3 - GAMEBOARD array is updated so that the chosen INDEX is filled in
+console.log('Array has been updated: ' + gameboard.getGameArray());
 
 // 4 - GAME's TURN is updated, so it is now the other player's turn
+console.log('It is now Round ' + game.getRound() + ' and it is player ' + game.getTurn() + '\'s turn');
 
-// 5 - the GAME checks for a WINNER
-//     - if there is a winner, return who it is
-//         - game is automatically stopped
-//     - if there is no winner, continue3
+// 2 - Player (whose turn it is) chooses an index on the board to place his TOKEN 
+game.play(2)
 
-// 6  - the GAME adds +1 to its ROUND count
-//     - if round === 9, STOP THE GAME (game.active = false)
-//         - if there is a WINNER, return who it is
-//         - else, return tie
-//     - if round < 9, continue playing (step 2)
+// 3 - GAMEBOARD array is updated so that the chosen INDEX is filled in
+console.log('Array has been updated: ' + gameboard.getGameArray());
+
+// 4 - GAME's TURN is updated, so it is now the other player's turn
+console.log('It is now Round ' + game.getRound() + ' and it is player ' + game.getTurn() + '\'s turn');
+
+
+game.resetGame();
+
+game.play(4);
+game.play(2);
+game.play(7);
+game.play(1);
+game.play(0);
+game.play(8);
+game.play(3);
+game.play(5);
+game.play(6);
+
+console.log('Game array is: ');
+console.log(gameboard.getGameArray());
+console.log('Game active: ' + game.isActive());
+console.log('Round: ' + game.getRound());
+console.log('It is player ' + game.getTurn() + "'s turn");
+console.log('Winner is ' + game.checkForWinner());
