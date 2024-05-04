@@ -1,0 +1,49 @@
+- A GAMEBOARD object is automatically created:
+    - an ARRAY of length 9, initially empty/with space for X and O
+    - a function to UPDATE the array after a Player has made a choice
+    - a function to RESET the array after a game is over
+    
+
+- A GAME object is automatically created. It may have:
+    - a ROUND count, to keep track of how many moves have been made (there will never be > 9)
+    - a WIN check, to alert of wins and stop the game (set to ACTIVE to false)
+    - a TURN (1 or 2), to see which player is playing. Initially '1'.
+    - an ACTIVE boolean, to see if the game is over or not. This can be automatically be set to FALSE when WIN is TRUE.
+    - a RESET function (see step 1 'if round > 0')
+
+- 2 PLAYER objects are automatically created. They will have:
+    - a NAME, defaulted to 'Player 1' / 'Player 2' (user will be prompted to assign a name if they wish)
+    - a NUMBER, 1 or 2 (1 will always be X, 2 O)
+
+
+0 - Users are asked to choose their names:
+    - if they make a choice, update the PLAYER objects' names
+    - if they do not make a choice, no changes are made to the PLAYER objects
+
+1 - the user prompts the start of the GAME (when working on HTML, this will prompt the appearance of the gameboard DISPLAY)
+    - the GAME will need to check if it is active or not to see if it needs to reset the array or not       
+        - if ROUND > 0 --> game.reset()
+            - reset GAME ARRAY
+            - reset ROUND count
+            - reset TURN state of players (1 is TRUE, 2 is FALSE)
+            - reset the gameboard DISPLAY
+            - reset the ACTIVE property of the GAME to TRUE
+        
+        - else continue
+
+2 - Player (whose turn it is) is prompted to choose an index on the board to place his TOKEN
+
+3 - GAMEBOARD array is updated so that the chosen INDEX is filled in with the player's TOKEN (X for TURN 1, O for TURN 2)
+
+4 -GAME's TURN is updated, so it is now the other player's turn
+
+5 - the GAME checks for a WINNER
+    - if there is a winner, return who it is
+        - game is automatically stopped
+    - if there is no winner, continue
+
+6  - the GAME adds +1 to its ROUND count
+    - if round === 9, STOP THE GAME (game.active = false)
+        - if there is a WINNER, return who it is
+        - else, return tie
+    - if round < 9, continue playing (step 2)

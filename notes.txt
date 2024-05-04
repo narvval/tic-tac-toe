@@ -39,3 +39,9 @@ Notes:
                 - an ARRAY
                 - a way of CHANGING the array (for a player to select a certain slot)
                 - a way of READING the array (so we know which ones are empty and which ones aren't)
+                - a way of RESETTING the array for a new game (after a win/tie)
+        - GAME:
+                - take as argument the GAMEBOARD so we can modify it
+                - round counts (so we know to stop after 9 rounds as there will never be more)
+                - perhaps add here a WIN CHECK to see if someone has won and stop the game
+                - a way of knowing if the game is ACTIVE or OVER
