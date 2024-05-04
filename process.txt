@@ -41,7 +41,7 @@
 5 - the GAME checks for a WINNER
     - if there is a winner, return who it is
         - game is automatically stopped
-    - if there is no winner, continue
+    - if there is no winner, continue3
 
 6  - the GAME adds +1 to its ROUND count
     - if round === 9, STOP THE GAME (game.active = false)
