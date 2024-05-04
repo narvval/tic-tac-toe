@@ -5,11 +5,13 @@ const gameboard = (function() {
 	const getGameArray = () => gameArray;
 
 	const updateArray = function (index, token) {
-		if (gameArray[index] != 'X' && gameArray[index] != 'O') {
-			if (token === 1) {
-				gameArray[index] = 'X';
-			} else if (token === 2) {
-				gameArray[index] = 'O';
+    if (game.isActive() === true) { // If game is inactive, do nothing
+			if (gameArray[index] != 'X' && gameArray[index] != 'O') {
+				if (token === 1) {
+					gameArray[index] = 'X';
+				} else if (token === 2) {
+					gameArray[index] = 'O';
+				}
 			}
 		}
 	};
@@ -63,6 +65,8 @@ const game = (function(){
     }
   };
 
+  const isActive = () => active;
+
   const resetGame = function() {
     gameboard.resetArray();
     round = 0;
@@ -81,7 +85,7 @@ const game = (function(){
     }
   };
 
-  const isGameEnd = function() {
+  const getGameResult = function() {
     if (round === 9) {
       active = false;
       if (checkForWin() === false) {
@@ -94,7 +98,7 @@ const game = (function(){
     }
   
 
-  return { getRound, nextRound, getTurn, nextTurn, resetGame, checkForWin, isGameEnd }
+  return { getRound, nextRound, getTurn, nextTurn, isActive, resetGame, checkForWin, getGameResult }
 
 })()
 
