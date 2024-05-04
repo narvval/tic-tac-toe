@@ -5,16 +5,16 @@ const gameboard = (function() {
 	const getGameArray = () => gameArray;
 
 	const updateArray = function (index, token) {
-    if (game.isActive() === true) { // If game is inactive, do nothing
-			if (gameArray[index] != 'X' && gameArray[index] != 'O') {
-				if (token === 1) {
-					gameArray[index] = 'X';
-				} else if (token === 2) {
-					gameArray[index] = 'O';
-				}
-			}
-		}
-	};
+    if (gameArray[index] != 'X' && gameArray[index] != 'O') {
+      if (token === 1) {
+        gameArray[index] = 'X';
+      } 
+      else if (token === 2) {
+        gameArray[index] = 'O';
+      }
+    }	
+  };
+
 
 	const resetArray = function () {
 		gameArray = Array.from('_'.repeat(9)); // Any way of avoiding this repetition?
@@ -48,57 +48,59 @@ const gameboard = (function() {
 // GAME IIFE Object
 const game = (function(){
   let round = 0; // Will never be > 9
-  let win = false;
   let turn = 1; // Will always be 1 or 2 (for each Player)
   let active = true;
 
   const getRound = () => round;
-  const nextRound = () => round++;
-
   const getTurn = () => turn;
-  const nextTurn = function() {
-    if (turn === 1) {
-      turn = 2;
-    }
-    else {
-      turn = 1;
-    }
-  };
-
   const isActive = () => active;
+  
+  const checkForWinner = function() {
+		let winner = gameboard.getWinner(); // gameboard.getWinner() will return 'X', 'O' or 'none'
+		if (winner != 'none') {
+			return winner; // Will get 'X' or 'O'
+		} else {
+			if (round === 9) {
+				return 'tie'; // All tiles are filled, but there is no winner
+			} else {
+				return 'none'; // Not all tiles are filled, game should continue
+			}
+		}
+	}
+  
+  const play = function (index) {
+		if (active === true) { // Ensure game is active. Else, do nothing.
 
-  const resetGame = function() {
+			gameboard.updateArray(index, turn);
+
+			// Check for win: will get 'X', 'O', 'tie' or 'none'
+			let winner = checkForWinner();
+      if (winner != 'none') { // If there is no winner, the game must continue (increase round, change turn) 
+				round++;
+        if (turn === 1) {
+          turn = 2;
+        }
+        else {
+          turn = 1;
+        }
+			}
+      else { // If there is a winner, game must be set to inactive and the winner must be announced
+        active = false;
+        return winner;
+      }
+		}
+	};
+
+  const resetGame = function () {
     gameboard.resetArray();
     round = 0;
-    win = false;
     turn = 1;
     active = true;
   };
 
-  const checkForWin = function() {
-    if (gameboard.getWinner() === 'none') {
-      win = false;
-    }
-    else {
-      win = true;
-      active = false; // Stop the game if there is a winner
-    }
-  };
 
-  const getGameResult = function() {
-    if (round === 9) {
-      active = false;
-      if (checkForWin() === false) {
-        return 'tie';
-      }
-      else {
-        return gameboard.getWinner();
-      }
-      }
-    }
-  
 
-  return { getRound, nextRound, getTurn, nextTurn, isActive, resetGame, checkForWin, getGameResult }
+  return { getRound, getTurn, isActive, checkForWinner, play, resetGame }
 
 })()
 
@@ -111,3 +113,44 @@ const newPlayer = function(name, number) {
 playerOne = newPlayer('Player 1', 1);
 playerTwo = newPlayer('Player 2', 2);
 
+// Simulate game (check all these actually work)
+
+// - A GAMEBOARD object is automatically created:
+console.log('Game array is initially: ' + gameboard.getGameArray())
+
+// - A GAME object is automatically created. It may have:
+console.log('Game active: ' + game.isActive())
+console.log('Round: ' + game.getRound());
+console.log('It is player ' + game.getTurn() + '\'s turn');
+console.log('Win status: ' + game.checkForWin());
+
+// - 2 PLAYER objects are automatically created. 
+console.log(playerOne.name + ' is ' + playerOne.number + 'st');
+console.log(playerTwo.name + ' is ' + playerTwo.number + 'nd');
+
+
+
+// 0 - Users are asked to choose their names:
+playerOne.name = 'Nico'
+playerTwo.name = 'The Devil'
+console.log(playerOne.name + ': ' + playerOne.number);
+console.log(playerTwo.name + ': ' + playerTwo.number);
+
+// 1 - the user prompts the start of the GAME (when working on HTML, this will prompt the appearance of the gameboard DISPLAY)
+
+// 2 - Player (whose turn it is) is prompted to choose an index on the board to place his TOKEN
+
+// 3 - GAMEBOARD array is updated so that the chosen INDEX is filled in with the player's TOKEN (X for TURN 1, O for TURN 2)
+
+// 4 - GAME's TURN is updated, so it is now the other player's turn
+
+// 5 - the GAME checks for a WINNER
+//     - if there is a winner, return who it is
+//         - game is automatically stopped
+//     - if there is no winner, continue3
+
+// 6  - the GAME adds +1 to its ROUND count
+//     - if round === 9, STOP THE GAME (game.active = false)
+//         - if there is a WINNER, return who it is
+//         - else, return tie
+//     - if round < 9, continue playing (step 2)
