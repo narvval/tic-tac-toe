@@ -6,9 +6,10 @@
 
 - A GAME object is automatically created. It may have:
     - a ROUND count, to keep track of how many moves have been made (there will never be > 9)
-    - a WIN check, to alert of wins and stop the game (set to ACTIVE to false)
+    - a WIN tracker, to check if there is a winner or not
+    - a WIN check, to alert of wins and stop the game
     - a TURN (1 or 2), to see which player is playing. Initially '1'.
-    - an ACTIVE boolean, to see if the game is over or not. This can be automatically be set to FALSE when WIN is TRUE.
+    - an ACTIVE boolean, to see if the game is over or not. Initially 'true'. 
     - a RESET function (see step 1 'if round > 0')
 
 - 2 PLAYER objects are automatically created. They will have:
