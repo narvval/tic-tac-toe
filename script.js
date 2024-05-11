@@ -132,6 +132,7 @@ const game = (function () {
 					// If there is a winner, or if there no more empty slots, game must be set to inactive and the winner must be announced
 					active = false;
 					console.log('Player ' + turn + ' has won!');
+					alert('Player ' + turn + ' has won!');
 					return winner;
 				}
 			}
@@ -258,22 +259,16 @@ playerTwo = newPlayer('Player 2', 2);
 // DISPLAY IN DOM
 // Create an object that will handle the display/DOM logic. Write a function that will render the contents of the gameboard array to the webpage (for now, you can always just fill the gameboard array with "X"s and "O"s just to see what’s going on)
 
-const domElements = (function () {
-	const cells = document.querySelectorAll('.cell');
 
-	const gameBtn = document.querySelector('.game-btn');
-
-	return { cells, gameBtn };
-})();
 
 const updateBoardSquares = (function () {
-	cellsArray = domElements.cells;
-	cellsArray.forEach((cell) => {
+	const cells = document.querySelectorAll('.cell');
+	
+	cells.forEach((cell) => {
 		cell.addEventListener('click', () => {
 
-			// Ensure cell is empty, else do nothing
-			if (cell.classList.contains('empty')) {
-
+			// Ensure game is active and cell is empty, else do nothing
+			if ((game.isActive() === true) && (cell.classList.contains('empty'))) {
 				// Identify the index of the cell
 				const cellIndex = cell.classList[1].replace(/^\D+/g, '');
 
@@ -289,11 +284,26 @@ const updateBoardSquares = (function () {
 
 				// Play the game
 				game.play(cellIndex);
-
 			}
 		});
 	});
+
+	return { cells }
 })();
+
+const resetBoard = (function() {
+	const gameBtn = document.querySelector('.game-btn');
+
+	gameBtn.addEventListener('click', () => {
+		// Reset game
+		game.resetGame();
+		// Clear board (DOM)
+		updateBoardSquares.cells.forEach((cell) => {
+			cell.classList.add('empty');
+			cell.innerHTML = '';
+		})
+	})
+})()
 
 //  bookPages = document.createElement("div");
 //   bookPages.classList.add("pages");

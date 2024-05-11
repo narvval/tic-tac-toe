@@ -41,6 +41,11 @@ button {
 	width: 175px;
 }
 
+button:hover {
+	background-color: var(--color-highlight);
+	color: var(--color-light);
+}
+
 .playerOne,
 .playerTwo {
 	background-size: cover;
@@ -65,7 +70,6 @@ button {
 	place-items: center;
 	overflow: hidden;
 	position: relative;
-	
 }
 
 /* This creates the effect of inner borders, without external ones */
