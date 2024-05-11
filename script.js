@@ -120,7 +120,6 @@ const game = (function () {
 				// Check for win: will get 'X', 'O', 'tie' or 'none'
 				let winner = checkForWinner();
 
-				console.log('Round is ' + game.getRound());
 				// If there is no winner and there are still empty slots, the game must continue (increase round, change turn)
 				if (winner === 'none' && round < 8) {
 					round++;
@@ -132,6 +131,7 @@ const game = (function () {
 				} else {
 					// If there is a winner, or if there no more empty slots, game must be set to inactive and the winner must be announced
 					active = false;
+					console.log('Player ' + turn + ' has won!');
 					return winner;
 				}
 			}
@@ -254,3 +254,54 @@ playerTwo = newPlayer('Player 2', 2);
 // console.log('Winner is: ' + game.getGameWinner());
 // console.log('Round is ' + game.getRound())
 // console.log('Game status is ' + game.isActive())
+
+// DISPLAY IN DOM
+// Create an object that will handle the display/DOM logic. Write a function that will render the contents of the gameboard array to the webpage (for now, you can always just fill the gameboard array with "X"s and "O"s just to see what’s going on)
+
+const domElements = (function () {
+	const cells = document.querySelectorAll('.cell');
+
+	const gameBtn = document.querySelector('.game-btn');
+
+	return { cells, gameBtn };
+})();
+
+const updateBoardSquares = (function () {
+	cellsArray = domElements.cells;
+	cellsArray.forEach((cell) => {
+		cell.addEventListener('click', () => {
+
+			// Ensure cell is empty, else do nothing
+			if (cell.classList.contains('empty')) {
+
+				// Identify the index of the cell
+				const cellIndex = cell.classList[1].replace(/^\D+/g, '');
+
+				// Remove the 'empty' class
+				cell.classList.remove('empty');
+
+				// Identify which player's turn it is and update board accordingly
+				if (game.getTurn() === 1) {
+					cell.innerHTML = 'P1';
+				} else {
+					cell.innerHTML = 'P2';
+				}
+
+				// Play the game
+				game.play(cellIndex);
+
+			}
+		});
+	});
+})();
+
+//  bookPages = document.createElement("div");
+//   bookPages.classList.add("pages");
+//   bookPages.innerText = bookObject.pages + " pages";
+
+//   // Nest them all under 'card'
+//   card.appendChild(bookTitle);
+
+// testCells = Array.from(domElements.cells);
+// cell5Index = testCells[5].classList[1].replace(/^\D+/g, '');
+// console.log(cell5Index)

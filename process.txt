@@ -48,3 +48,20 @@
         - if there is a WINNER, return who it is
         - else, return tie
     - if round < 9, continue playing (step 2)
+
+-------------------------------------------------------------------
+
+Time to add DOM display.
+
+We need to identify DOM elements and assign them to variables for later use:
+    ✔ - all cells
+    ✔ - the button
+
+Logic:
+    - when a player clicks a square on the board, the following must happen:
+    
+        - their token should be placed in that div in the DOM
+        - that div's "empty" class should be removed
+        - the gameboard array should be updated so that their token is placed there
+    - when the game resets, everything in the DOM must be reset as well:
+        - re-add "empty" class to all cells 
