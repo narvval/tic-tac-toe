@@ -6,6 +6,7 @@
 
 :root {
 	--color-gameboard: #b4dea8;
+	--color-gameboard-darker: #a3c998; 
 	--color-background: #3f9ba6;
 	--color-light: #f5f5f5;
 	--color-highlight: #d96c6c;
@@ -66,6 +67,7 @@ button {
 	overflow: hidden;
 }
 
+/* This creates the effect of "inner" borders, without external ones */
 .container-for-lines {
 	background-color: var(--color-light);
 }
@@ -85,3 +87,11 @@ button {
     place-items: center;
 }
 
+.empty:hover::before {
+	content: '';
+	background-color: var(--color-gameboard-darker);
+	height: 90px;
+	width: 90px;
+	border-radius: 50%;
+	position: absolute;
+}
