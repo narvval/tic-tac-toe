@@ -277,9 +277,9 @@ const updateBoardSquares = (function () {
 
 				// Identify which player's turn it is and update board accordingly
 				if (game.getTurn() === 1) {
-					cell.innerHTML = 'P1';
+					createToken('playerOne', cell);
 				} else {
-					cell.innerHTML = 'P2';
+					createToken('playerTwo', cell);
 				}
 
 				// Play the game
@@ -305,13 +305,10 @@ const resetBoard = (function() {
 	})
 })()
 
-//  bookPages = document.createElement("div");
-//   bookPages.classList.add("pages");
-//   bookPages.innerText = bookObject.pages + " pages";
+function createToken(player, parent) {
+	const div = document.createElement('div');
+	div.classList.add(player);
+	parent.appendChild(div);
+}
 
-//   // Nest them all under 'card'
-//   card.appendChild(bookTitle);
 
-// testCells = Array.from(domElements.cells);
-// cell5Index = testCells[5].classList[1].replace(/^\D+/g, '');
-// console.log(cell5Index)
