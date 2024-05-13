@@ -14,24 +14,42 @@
 		<title>Tic Tac Toe</title>
 	</head>
 	<body>
-		<div class="triangle"></div>
-		<p class="title">Tic Tac Toe</p>
-		<div class="gameboard-container">
-			<div class="container-for-lines">
-				<div class="gameboard">
-					<div class="cell cell-0 empty"></div>
-					<div class="cell cell-1 empty"></div>
-					<div class="cell cell-2 empty"></div>
-					<div class="cell cell-3 empty"></div>
-					<div class="cell cell-4 empty"></div>
-					<div class="cell cell-5 empty"></div>
-					<div class="cell cell-6 empty"></div>
-					<div class="cell cell-7 empty"></div>
-					<div class="cell cell-8 empty"></div>
+		<div class="player-container player-container-one">
+			<p class="player-name">Player 1</p>
+			<div class="player-icon player-one"></div>
+		</div>
+		<div class="game-container">
+			<p class="title">Tic Tac Toe</p>
+			<div class="gameboard-container">
+				<div class="container-for-lines">
+					<div class="gameboard">
+						<div class="cell cell-0 empty"></div>
+						<div class="cell cell-1 empty"></div>
+						<div class="cell cell-2 empty"></div>
+						<div class="cell cell-3 empty"></div>
+						<div class="cell cell-4 empty"></div>
+						<div class="cell cell-5 empty"></div>
+						<div class="cell cell-6 empty"></div>
+						<div class="cell cell-7 empty"></div>
+						<div class="cell cell-8 empty"></div>
+					</div>
 				</div>
 			</div>
+			<button class="game-btn">Reset</button>
 		</div>
-		<button class="game-btn">Reset</button>
+
+		<div class="player-container player-container-two inactive">
+			<p class="player-name">Player 2</p>
+			<div class="player-icon player-two"></div>
+		</div>
+
+		<div class="modal active">
+			<button data-modal-close class="close-btn">&times;</button>
+			<div class="modal-icon tie"></div>
+			<div class="modal-message modal-message-tie">It's a tie!</div>
+		</div>
+		<div class="overlay active"></div>
+
+		<!-- ADD FOOTER W NAME AND ODIN PROJECT ?!?! -->
 	</body>
 </html>
-

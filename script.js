@@ -1,3 +1,5 @@
+// SEARCH 'UPDATED' FOR CODE TO BE FIXED
+
 // GAMEBOARD IIFE Object
 const gameboard = (function () {
 	let gameArray = Array.from('_'.repeat(9));
@@ -131,8 +133,6 @@ const game = (function () {
 				} else {
 					// If there is a winner, or if there no more empty slots, game must be set to inactive and the winner must be announced
 					active = false;
-					console.log('Player ' + turn + ' has won!');
-					alert('Player ' + turn + ' has won!');
 					return winner;
 				}
 			}
@@ -259,16 +259,14 @@ playerTwo = newPlayer('Player 2', 2);
 // DISPLAY IN DOM
 // Create an object that will handle the display/DOM logic. Write a function that will render the contents of the gameboard array to the webpage (for now, you can always just fill the gameboard array with "X"s and "O"s just to see what’s going on)
 
-
-
 const updateBoardSquares = (function () {
 	const cells = document.querySelectorAll('.cell');
-	
+	const playerContainers = document.querySelectorAll('.player-container');
+
 	cells.forEach((cell) => {
 		cell.addEventListener('click', () => {
-
 			// Ensure game is active and cell is empty, else do nothing
-			if ((game.isActive() === true) && (cell.classList.contains('empty'))) {
+			if (game.isActive() === true && cell.classList.contains('empty')) {
 				// Identify the index of the cell
 				const cellIndex = cell.classList[1].replace(/^\D+/g, '');
 
@@ -281,18 +279,33 @@ const updateBoardSquares = (function () {
 				} else {
 					createToken('playerTwo', cell);
 				}
+				// Toggle active/inactive for Player Status
+				playerContainers.forEach((container) => {
+					container.classList.toggle('inactive');
+				});
 
 				// Play the game
 				game.play(cellIndex);
+
+				// Alert if there has been a winner
+				winner = game.getGameWinner();
+				if (winner === 'tie') {
+					alert('It\'s a tie!')
+				}
+				else if (winner != 'none') {
+					alert(winner + ' has won!')
+				}
 			}
 		});
 	});
 
-	return { cells }
+	return { cells };
 })();
 
-const resetBoard = (function() {
+const resetBoard = (function () {
 	const gameBtn = document.querySelector('.game-btn');
+	const playerOneStatus = document.querySelector('.player-container-one');
+	const playerTwoStatus = document.querySelector('.player-container-two');
 
 	gameBtn.addEventListener('click', () => {
 		// Reset game
@@ -301,14 +314,15 @@ const resetBoard = (function() {
 		updateBoardSquares.cells.forEach((cell) => {
 			cell.classList.add('empty');
 			cell.innerHTML = '';
-		})
-	})
-})()
+		});
+		// Put focus on "Player 1" 
+		playerOneStatus.classList.remove('inactive');
+		playerTwoStatus.classList.add('inactive');
+	});
+})();
 
 function createToken(player, parent) {
 	const div = document.createElement('div');
 	div.classList.add(player);
 	parent.appendChild(div);
 }
-
-
