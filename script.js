@@ -1,5 +1,3 @@
-// SEARCH 'UPDATED' FOR CODE TO BE FIXED
-
 // GAMEBOARD IIFE Object
 const gameboard = (function () {
 	let gameArray = Array.from('_'.repeat(9));
@@ -83,15 +81,14 @@ const game = (function () {
 	let round = 0; // Will never be > 8
 	let turn = 1; // Will always be 1 or 2 (for each Player)
 	let active = true;
-	let gameWinner = 'none';
+	let gameWinner = 'none'; // 'none', 'tie', 'playerOne' or 'playerTwo'
 
-	const getRound = () => round;
 	const getTurn = () => turn;
 	const getGameWinner = () => gameWinner;
 	const isActive = () => active;
 
 	const checkForWinner = function () {
-		let winner = gameboard.getWinner(); //will get 'X', 'O' or 'none'
+		let winner = gameboard.getWinner(); // will get 'X', 'O' or 'none'
 		if (winner != 'none') {
 			// Will get 'X' or 'O'
 			if (winner === 'X') {
@@ -147,7 +144,6 @@ const game = (function () {
 	};
 
 	return {
-		getRound,
 		getTurn,
 		getGameWinner,
 		isActive,
