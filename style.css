@@ -7,11 +7,10 @@
 :root {
 	--color-gameboard: #b4dea8;
 	--color-gameboard-darker: #a3c998;
-	--color-dark-green: #34401A;
+	--color-dark-green: #34401a;
 	--color-background: #3f9ba6;
 	--color-light: #f5f5f5;
 	--color-highlight: #d96c6c;
-	
 }
 
 body {
@@ -19,7 +18,9 @@ body {
 	font-family: 'Gloria Hallelujah', cursive;
 	font-weight: 400;
 	font-style: normal;
+}
 
+.page-container {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -66,7 +67,8 @@ body {
 }
 
 .player-one,
-.player-two, .tie {
+.player-two,
+.tie {
 	background-size: cover;
 	width: 60px;
 	height: 60px;
@@ -127,28 +129,27 @@ body {
 	position: absolute;
 }
 
-
 /* Modal styling */
 .modal {
-    /* When user scrolls, this follows them */
-    position: fixed; 
-    /* centers top-left corner of modal in center of screen */
-    top: 50%;
-    left: 50%;
-    /* center entire modal. Scale(0) hides the modal. */
-    transform: translate(-50%, -50%) scale(0);
-    /* A high number makes it be above everything else */
-    z-index: 10;
-    background-color: var(--color-dark-green);
-    color: var(--color-gameboard);
-    font-size: 1.5em;
+	/* When user scrolls, this follows them */
+	position: fixed;
+	/* centers top-left corner of modal in center of screen */
+	top: 50%;
+	left: 50%;
+	/* center entire modal. Scale(0) hides the modal. */
+	transform: translate(-50%, -50%) scale(0);
+	/* A high number makes it be above everything else */
+	z-index: 10;
+	background-color: var(--color-dark-green);
+	color: var(--color-gameboard);
+	font-size: 1.5em;
 	line-height: 150%;
-    border-radius: 10%;
-    height: 230px;
+	border-radius: 10%;
+	height: 230px;
 	width: 230px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	text-align: center;
 }
 
@@ -167,39 +168,38 @@ body {
 }
 
 .modal.active {
-    /* Scale(1) to make it visible */
-    transform: translate(-50%, -50%) scale(1);
-
+	/* Scale(1) to make it visible */
+	transform: translate(-50%, -50%) scale(1);
 }
 
 .modal-close-btn {
-    align-self: flex-end;
-    margin-top: 20px;
-    margin-right: 20px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    border-radius: 20px;
-    font-size: 25px;
+	align-self: flex-end;
+	margin-top: 20px;
+	margin-right: 20px;
+	background: none;
+	border: none;
+	cursor: pointer;
+	border-radius: 20px;
+	font-size: 25px;
 	color: var(--color-gameboard);
 }
 
 .overlay {
-    position: fixed;
-    opacity: 0;
-    /* Apply overlay to the entire screen */
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    /* Apply 50% opacity */
-    background-color: rgba(0, 0, 0, .5);
-    /* Allows user to click buttons when inactive */
-    pointer-events: none; 
+	position: fixed;
+	opacity: 0;
+	/* Apply overlay to the entire screen */
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	/* Apply 50% opacity */
+	background-color: rgba(0, 0, 0, 0.5);
+	/* Allows user to click buttons when inactive */
+	pointer-events: none;
 }
 
 .overlay.active {
-    opacity: 1;
-    /* Prevent user from clicking buttons */
-    pointer-events: all;
+	opacity: 1;
+	/* Prevent user from clicking buttons */
+	pointer-events: all;
 }
