@@ -166,98 +166,6 @@ const newPlayer = function (name, number) {
 playerOne = newPlayer('Player 1', 1);
 playerTwo = newPlayer('Player 2', 2);
 
-///////////////////////////////////////////////////////////////
-
-// Simulate game (check all these actually work)
-
-// // - A GAMEBOARD object is automatically created:
-// console.log('Game array is initially: ' + gameboard.getGameArray())
-
-// // - A GAME object is automatically created.
-// console.log('Game active: ' + game.isActive())
-// console.log('Round: ' + game.getRound());
-// console.log('It is player ' + game.getTurn() + '\'s turn');
-// console.log('Winner is ' + game.checkForWinner())
-
-// // - 2 PLAYER objects are automatically created.
-// console.log(playerOne.name + ' is ' + playerOne.number + 'st');
-// console.log(playerTwo.name + ' is ' + playerTwo.number + 'nd');
-
-// // 0 - Users are asked to choose their names:
-// playerOne.name = 'Nico'
-// playerTwo.name = 'The Devil'
-// console.log(playerOne.name + ': ' + playerOne.number);
-// console.log(playerTwo.name + ': ' + playerTwo.number);
-
-// // 2 - Player (whose turn it is) chooses an index on the board to place his TOKEN
-// game.play(5)
-
-// // 3 - GAMEBOARD array is updated so that the chosen INDEX is filled in
-// console.log('Array has been updated: ' + gameboard.getGameArray());
-
-// // 4 - GAME's TURN is updated, so it is now the other player's turn
-// console.log('It is now Round ' + game.getRound() + ' and it is player ' + game.getTurn() + '\'s turn');
-
-// // 2 - Player (whose turn it is) chooses an index on the board to place his TOKEN
-// game.play(2)
-
-// // 3 - GAMEBOARD array is updated so that the chosen INDEX is filled in
-// console.log('Array has been updated: ' + gameboard.getGameArray());
-
-// // 4 - GAME's TURN is updated, so it is now the other player's turn
-// console.log('It is now Round ' + game.getRound() + ' and it is player ' + game.getTurn() + '\'s turn');
-
-// game.resetGame();
-
-// game.play(4);
-// console.log(gameboard.getGameArray());
-
-// game.play(2);
-// game.play(7);
-// game.play(1);
-// game.play(0);
-// game.play(8);
-// game.play(3);
-// game.play(5);
-// game.play(6);
-
-// console.log('Game array is: ');
-// console.log(gameboard.getGameArray());
-// console.log('Game active: ' + game.isActive());
-// console.log('Round: ' + game.getRound());
-// console.log('It is player ' + game.getTurn() + "'s turn");
-// console.log('Winner is ' + game.checkForWinner());
-
-// game.play(0);
-// console.log(gameboard.getGameArray());
-// game.play(4);
-// console.log(gameboard.getGameArray());
-// game.play(2);
-// console.log(gameboard.getGameArray());
-// game.play(1);
-// console.log(gameboard.getGameArray());
-// console.log('MIDDLE')
-// console.log('Winner is: ' + game.getGameWinner());
-// console.log('Round is ' + game.getRound());
-// console.log('Game status is ' + game.isActive());
-
-// game.play(7);
-// console.log(gameboard.getGameArray());
-// game.play(5);
-// console.log(gameboard.getGameArray());
-// game.play(3);
-// console.log(gameboard.getGameArray());
-// game.play(6);
-// console.log(gameboard.getGameArray());
-// game.play(8);
-// console.log(gameboard.getGameArray());
-
-// console.log('Winner is: ' + game.getGameWinner());
-// console.log('Round is ' + game.getRound())
-// console.log('Game status is ' + game.isActive())
-
-// DISPLAY IN DOM
-// Create an object that will handle the display/DOM logic. Write a function that will render the contents of the gameboard array to the webpage (for now, you can always just fill the gameboard array with "X"s and "O"s just to see what’s going on)
 
 const updateBoardSquares = (function () {
 	const cells = document.querySelectorAll('.cell');
@@ -329,6 +237,11 @@ const triggerModal = (function() {
 	const modalIcon = document.querySelector('.modal-icon');
 	const modalMessage = document.querySelector('.modal-message');
 	const overlay = document.querySelector('.overlay');
+	const closeBtn = document.querySelector('.modal-close-btn');
+
+	closeBtn.addEventListener('click', () => {
+		closeModal();
+	});
 
 	const openModal = function(winner) {
 		modal.classList.add('active');
@@ -357,12 +270,5 @@ const triggerModal = (function() {
 		modalMessage.classList.remove('modal-message-tie');
 	};
 
-	return { openModal, closeModal };
-})()
-
-const linkModalBtn = (function() {
-	const closeBtn = document.querySelector('.modal-close-btn');
-	closeBtn.addEventListener('click', () => {
-		triggerModal.closeModal();
-	})
+	return { openModal };
 })()
