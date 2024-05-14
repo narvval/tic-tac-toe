@@ -21,6 +21,11 @@ body {
 }
 
 .page-container {
+	display: grid;
+	gap: 50px;
+}
+
+.page-container-top {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -136,7 +141,7 @@ body {
 	/* centers top-left corner of modal in center of screen */
 	top: 50%;
 	left: 50%;
-	/* center entire modal. Scale(0) hides the modal. */
+	/* Center entire modal. Scale(0) hides the modal. */
 	transform: translate(-50%, -50%) scale(0);
 	/* A high number makes it be above everything else */
 	z-index: 10;
@@ -202,4 +207,28 @@ body {
 	opacity: 1;
 	/* Prevent user from clicking buttons */
 	pointer-events: all;
+}
+
+.page-container-bottom {
+	text-align: center;
+	font-family: 'Courier New', Courier, monospace;
+	font-size: 0.75em;
+	color: var(--color-dark-green);
+	margin-bottom: 20px;
+
+	display: flex;
+	justify-content: center;
+	gap: 10px;
+}
+
+.page-container-bottom a {
+	text-decoration: none;
+}
+
+.link-me {
+	color: var(--color-gameboard);
+}
+
+.link-attribution {
+	color: black;
 }
