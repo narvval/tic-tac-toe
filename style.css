@@ -80,15 +80,15 @@ body {
 }
 
 .player-one {
-	background-image: url(/images/frog.png);
+	background-image: url(./images/frog.png);
 }
 
 .player-two {
-	background-image: url(/images/lotus.png);
+	background-image: url(./images/lotus.png);
 }
 
 .tie {
-	background-image: url(/images/pond.png);
+	background-image: url(./images/pond.png);
 }
 
 .gameboard-container {
