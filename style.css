@@ -158,7 +158,7 @@ body {
 }
 
 .modal-message {
-	margin-top: 10px 40px;
+	margin: 10px 40px;
 }
 
 /* tie message is one-liner & needs more space between icon and text */
@@ -172,7 +172,7 @@ body {
 
 }
 
-.close-btn {
+.modal-close-btn {
     align-self: flex-end;
     margin-top: 20px;
     margin-right: 20px;

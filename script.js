@@ -95,10 +95,10 @@ const game = (function () {
 		if (winner != 'none') {
 			// Will get 'X' or 'O'
 			if (winner === 'X') {
-				gameWinner = playerOne.name;
+				gameWinner = 'playerOne';
 				return gameWinner;
 			} else {
-				gameWinner = playerTwo.name;
+				gameWinner = 'playerTwo';
 				return gameWinner;
 			}
 		} else {
@@ -275,9 +275,9 @@ const updateBoardSquares = (function () {
 
 				// Identify which player's turn it is and update board accordingly
 				if (game.getTurn() === 1) {
-					createToken('playerOne', cell);
+					createToken('player-one', cell);
 				} else {
-					createToken('playerTwo', cell);
+					createToken('player-two', cell);
 				}
 				// Toggle active/inactive for Player Status
 				playerContainers.forEach((container) => {
@@ -289,12 +289,9 @@ const updateBoardSquares = (function () {
 
 				// Alert if there has been a winner
 				winner = game.getGameWinner();
-				if (winner === 'tie') {
-					alert('It\'s a tie!')
-				}
-				else if (winner != 'none') {
-					alert(winner + ' has won!')
-				}
+				if (winner != 'none') {
+					triggerModal.openModal(winner);
+				} 
 			}
 		});
 	});
@@ -315,7 +312,7 @@ const resetBoard = (function () {
 			cell.classList.add('empty');
 			cell.innerHTML = '';
 		});
-		// Put focus on "Player 1" 
+		// Put focus on "Player 1"
 		playerOneStatus.classList.remove('inactive');
 		playerTwoStatus.classList.add('inactive');
 	});
@@ -326,3 +323,46 @@ function createToken(player, parent) {
 	div.classList.add(player);
 	parent.appendChild(div);
 }
+
+const triggerModal = (function() {
+	const modal = document.querySelector('.modal');
+	const modalIcon = document.querySelector('.modal-icon');
+	const modalMessage = document.querySelector('.modal-message');
+	const overlay = document.querySelector('.overlay');
+
+	const openModal = function(winner) {
+		modal.classList.add('active');
+		overlay.classList.add('active');
+
+		if (winner === 'playerOne') {
+			modalIcon.classList.add('player-one');
+			modalMessage.innerText = 'Player One has won!';
+		} else if (winner === 'playerTwo') {
+			modalIcon.classList.add('player-two');
+			modalMessage.innerText = 'Player Two has won!';
+		} else if (winner === 'tie') {
+			modalIcon.classList.add('tie');
+			modalMessage.classList.add('modal-message-tie');
+			modalMessage.innerText = "It's a tie!";
+		}
+	};
+
+	const closeModal = function () {
+		modal.classList.remove('active');
+		overlay.classList.remove('overlay');
+		modalMessage.innerText = '';
+		modalIcon.classList.remove('player-one');
+		modalIcon.classList.remove('player-two');
+		modalIcon.classList.remove('tie');
+		modalMessage.classList.remove('modal-message-tie');
+	};
+
+	return { openModal, closeModal };
+})()
+
+const linkModalBtn = (function() {
+	const closeBtn = document.querySelector('.modal-close-btn');
+	closeBtn.addEventListener('click', () => {
+		triggerModal.closeModal();
+	})
+})()
